@@ -2,29 +2,10 @@
 [![nodejs badge](https://img.shields.io/badge/type-nodejs-green.svg)](https://nodejs.org/en/)
 [![typescript badge](https://img.shields.io/badge/type-typescript-blue.svg)](https://www.typescriptlang.org/)
 
-# typescript-package-boilerplate
+# HTTP response validation
 
-Minimalistic boilerplate to start a package in Node Js with TypeScript for personal projects.
-
-## Quick start
-
-To start, just clone the repository with following commands:
-
-- clone using `HTTP`
-
-```sh
-git clone https://github.com/leojaimesson/typescript-package-boilerplate.git
-cd typescript-package-boilerplate
-npm install
-```
-
-- clone using `SSH`
-
-```sh
-git clone git@github.com:leojaimesson/typescript-package-boilerplate.git
-cd typescript-package-boilerplate
-npm install
-```
+Set of utility functions to help validate [Web API Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) 
+and provide valid response body (`response.text()` or `response.json()`) or to construct and throw `Error`
 
 ## Available scripts
 

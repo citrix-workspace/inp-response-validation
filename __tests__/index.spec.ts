@@ -1,33 +1,34 @@
-import { expect } from 'chai'
-import * as calc from '../src'
+import 'isomorphic-fetch'
+import  {expect} from 'chai'
+import * as chai from 'chai'
+import * as chaiAsPromised from 'chai-as-promised'
 
-describe('calc tests', () => {
-	describe('sum()', () => {
-		context('when it receives "a" = 2 and "b" = 1', () => {
-			it('should return 3', () => {
-				expect(calc.sum(2, 1)).to.equal(3)
-			})
+import {getSuccessJson, getSuccessText} from '../src'
+
+chai.use(chaiAsPromised as any);
+
+describe('Web API response validation', () => {
+	describe('getSuccessText()', () => {
+		it('valid response should return body as String', async () => {
+			const body = 'body content'
+			const response = new Response(body, {status: 200})
+			expect(await getSuccessText()(response)).to.equal(body)
+		})
+		it('invalid response should throw default error', async () => {
+			const response = new Response(null, {status: 400})
+			await expect(getSuccessText()(response)).to.be.rejectedWith(/Response status: 400 Bad Request/)
+		})
+		it('invalid response should throw custom error', async () => {
+			const response = new Response(null, {status: 400})
+			const customErrorMessage = 'Something went wrong'
+			await expect(getSuccessText(customErrorMessage)(response)).to.be.rejectedWith(customErrorMessage)
 		})
 	})
-	describe('sub()', () => {
-		context('when it receives "a" = 2 and "b" = 1', () => {
-			it('should return 1', () => {
-				expect(calc.sub(2, 1)).to.equal(1)
-			})
-		})
-	})
-	describe('div()', () => {
-		context('when it receives "a" = 4 and "b" = 2', () => {
-			it('should return 2', () => {
-				expect(calc.sub(4, 2)).to.equal(2)
-			})
-		})
-	})
-	describe('mult()', () => {
-		context('when it receives "a" = 2 and "b" = 3', () => {
-			it('should return 6', () => {
-				expect(calc.mult(2, 3)).to.equal(6)
-			})
+	describe('getSuccessJson()', () => {
+		it('valid response should return body as Object', async () => {
+			const body = {body: 'content'}
+			const response = new Response(JSON.stringify(body), {status: 200})
+			expect(await getSuccessJson()(response)).to.be.deep.equal(body)
 		})
 	})
 })
