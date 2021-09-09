@@ -1,6 +1,6 @@
 {
   "name": "inp-response-validation",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Set of utility functions to help validate Web API Response",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
